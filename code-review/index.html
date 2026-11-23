@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>AI code review · $299 · Rodney Gainous</title>
+<meta name="description" content="A one-day security review of an app built with Cursor, Claude Code, or similar. $299 fixed, paid up front.">
+<style>
+  :root { --ink:#111; --mute:#555; --line:#e5e5e5; --accent:#0a7c4a; }
+  * { box-sizing: border-box; }
+  body { margin:0; font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color:var(--ink); background:#fff; }
+  main { max-width: 680px; margin: 0 auto; padding: 48px 20px 80px; }
+  h1 { font-size: 34px; line-height:1.2; margin: 0 0 12px; }
+  h2 { font-size: 20px; margin: 40px 0 8px; }
+  p, li { color: var(--ink); }
+  .sub { color: var(--mute); font-size: 19px; margin: 0 0 24px; }
+  .price { display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin: 24px 0; }
+  .btn { display:inline-block; background:var(--accent); color:#fff; text-decoration:none; padding:12px 22px; border-radius:6px; font-weight:600; }
+  .btn.ghost { background:transparent; color:var(--accent); border:1px solid var(--accent); }
+  .meta { color: var(--mute); font-size: 15px; }
+  ul { padding-left: 20px; }
+  li { margin: 4px 0; }
+  .box { border:1px solid var(--line); border-radius:8px; padding: 16px 20px; background:#fafafa; }
+  .box h3 { margin: 12px 0 4px; font-size: 16px; }
+  .box p { margin: 4px 0; font-size: 15px; }
+  code { font-size: 14px; background:#f0f0f0; padding: 1px 4px; border-radius:3px; }
+  footer { margin-top: 48px; color: var(--mute); font-size: 14px; border-top:1px solid var(--line); padding-top:16px; }
+</style>
+<script defer src="offer-analytics.js"></script>
+</head>
+<body>
+<main>
+  <h1>Your AI wrote the code. I'll tell you what breaks.</h1>
+  <p class="sub">A one-day security review of an app built with Cursor, Claude Code, or similar. $299 fixed.</p>
+
+  <p>It works on your machine. You're not sure whether one customer can see another customer's data, or whether auth and file storage are locked down. I spend one day on the code and write down what I'd fix, ranked by risk.</p>
+
+  <div class="price">
+    <a class="btn" href="https://buy.stripe.com/aFaeVd0RMbtA3rgaGI0gw04?client_reference_id=index_hero">Pay $299 and start</a>
+    <span class="meta">$299 fixed · paid up front</span>
+  </div>
+
+  <h2>What you get</h2>
+  <ul>
+    <li>A written report (PDF or Google Doc) covering cross-tenant data access (including RLS), auth, Storage, and how the service role key is used.</li>
+    <li>Every finding ranked by risk, with the file and line, why it matters, and a concrete fix.</li>
+    <li>One 30-minute follow-up call after delivery.</li>
+    <li>Fixes I write or merge myself are quoted separately.</li>
+  </ul>
+
+  <h2>Payment terms</h2>
+  <ul>
+    <li>The review is $299 fixed for one day of work.</li>
+    <li>It is paid up front, before I look at any code.</li>
+    <li>One 30-minute follow-up call is included.</li>
+    <li>Any fixes I make are quoted separately.</li>
+  </ul>
+
+  <h2>What I check</h2>
+  <ul>
+    <li><b>Cross-tenant data access:</b> can one customer read or change another customer's data? I log in as two test customers and try it through the API and files, not just by reading the database rules (including Supabase RLS).</li>
+    <li><b>Auth:</b> who can sign in, and what they can do once they are in.</li>
+    <li><b>Storage:</b> whether files are isolated the same way as the database.</li>
+    <li><b>Service-key use:</b> where the service role key is used, and whether that path can skip your access rules.</li>
+  </ul>
+
+  <h2>Scope</h2>
+  <ul>
+    <li>One repo, one day of review.</li>
+    <li>TypeScript/JavaScript (Next.js, React, Node), Python, Swift, Kotlin, React Native.</li>
+    <li>I start only after the $299 is paid and I have read-only access.</li>
+  </ul>
+
+  <h2>Not included</h2>
+  <ul>
+    <li>Writing or merging the fixes. I can quote that separately if you want.</li>
+    <li>Penetration testing, load testing, or a compliance audit (SOC 2, HIPAA, PCI).</li>
+    <li>A guarantee that the app is secure. This is one experienced engineer's careful read, not a certification.</li>
+  </ul>
+
+  <h2>How it works</h2>
+  <ol>
+    <li>Pay $299. Checkout asks for your repo link and what the app does. I don't look at any code until this is paid.</li>
+    <li>I email you within 1 business day to get read-only access (GitHub collaborator or a zip) and ask what worries you most.</li>
+    <li>I spend one day on the review and send the written report.</li>
+    <li>One 30-minute follow-up call is included.</li>
+  </ol>
+  <p>If I look at the repo and it's outside the scope above, I'll tell you before starting and refund the $299 in full.</p>
+
+  <h2>What a report looks like</h2>
+  <div class="box">
+    <p class="meta">Made-up example, shortened</p>
+    <h3>Fix first</h3>
+    <p>1. <b>Any logged-in user can read any other user's notes.</b> The <code>notes</code> table has RLS turned off. Add a policy limited to <code>auth.uid() = user_id</code>; SQL included.</p>
+    <p>2. <b>The service role key is used in a browser-callable function.</b> <code>api/admin/route.ts:18</code> uses the service role key and skips your row-level rules. Move this to a server-only path and check the signed-in user first.</p>
+    <p>3. <b>Uploaded files are not isolated by customer.</b> The Storage bucket policy allows any authenticated user to read any object. Limit reads to that user's folder.</p>
+    <h3>Fix soon</h3>
+    <p>4. <b>A public API route returns records by id with no auth check</b> (<code>api/docs/[id]/route.ts:12</code>). Require a session and confirm the record belongs to that customer.</p>
+    <h3>Lower risk</h3>
+    <p>5. Signup allows disposable email domains. Low risk for a private pilot; tighten later if you open signups.</p>
+  </div>
+
+  <h2>Who's doing the review</h2>
+  <p>I'm a staff software engineer who has built at Bird and Ford.</p>
+
+  <div class="price">
+    <a class="btn" href="https://buy.stripe.com/aFaeVd0RMbtA3rgaGI0gw04?client_reference_id=index_footer">Pay $299 and start</a>
+    <a class="btn ghost" href="mailto:rodney.gainous@gmail.com?subject=AI%20code%20review%20question">Ask a question first</a>
+  </div>
+
+  <footer>Rodney Gainous · rodneygainous.com</footer>
+</main>
+</body>
+</html>
